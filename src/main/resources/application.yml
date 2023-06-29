@@ -1,0 +1,44 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: ""
+      secretKey: ""
+    enabled: true
+
+spring:
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/javasqstraining?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false
+    driver-class-name: org.postgresql.Driver
+  messages:
+    broker-queue: sqs
+    broker-topic: sns
+  sqstraining:
+    messages:
+      sqs:
+        enabled: true
+      broker: sqs
+
+  server:
+    port: 8081
+
+logging:
+  level:
+    com:
+      amazonaws:
+        internal:
+          InstanceMetadataServiceResourceFetcher: error
+        util:
+          EC2MetadataUtils: error
+
+## Logging SQL
+#spring.jpa.show-sql: true
+#spring.jpa.properties.hibernate.format_sql: true
+#logging.level.root: DEBUG
+#logging.level.org.hibernate.SQL: DEBUG
+#logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#logging.level.org.springframework.jdbc.core.JdbcTemplate: DEBUG
+#logging.level.org.springframework.jdbc.core.StatementCreatorUtils: TRACE
+#logging.level.org.springframework.orm.jpa:  DEBUG
+#logging.level.org.springframework.transaction: DEBUG

@@ -1,0 +1,10 @@
+spi:
+  messages:
+    broker-queue: sqs
+    broker-topic: sns
+cloud:
+  aws:
+    credentials:
+      accessKey: ""
+      secretKey: ""
+    enabled: true

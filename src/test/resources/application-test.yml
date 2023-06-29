@@ -1,0 +1,68 @@
+test:
+  db:
+    name: test
+
+cloud:
+  config:
+    enabled: false
+
+spring:
+  localstack:
+    host: localhost
+  cloud:
+    config:
+      enabled: false
+
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:9.6.8://localhost:5432/${test.db.name}?TC_TMPFS=/var/lib/mysql:rw&TC_DAEMON=true
+    hikari:
+      idleTimeout: 10000
+      minimumIdle: 0
+      maximumPoolSize: 100
+#    tear-down-sql: sql/tear-down.sql
+jsqst:
+  queuetraining:
+    ispb: ""
+    restore:
+      enabled: false
+    queues:
+      test-queue:
+        name: "QUEUE-TEST"
+        dlqName: "QUEUE-DLQ-TEST"
+      oldTerm: ""
+      newTerm: ""
+      prefix: "JST"
+      ispb: ""
+      suffix: "TEST"
+    messages:
+      sqs:
+        enabled: true
+      broker: sqs
+
+javasqstraining:
+  messaging:
+    enabled: true
+  keycloak:
+    enabled: false
+  method:
+    security:
+      enabled: false
+  messages:
+    sns:
+      enabled: false
+    jms:
+      enabled: false
+    broker: sqs
+    sqs:
+      enabled: true
+
+#spring.jpa.show-sql: true
+#spring.jpa.properties.hibernate.format_sql: true
+#logging.level.org.hibernate.SQL: DEBUG
+#logging.level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#logging.level.org.springframework.jdbc.core.JdbcTemplate: DEBUG
+#logging.level.org.springframework.jdbc.core.StatementCreatorUtils: TRACE
+#logging.level.org.springframework.orm.jpa:  DEBUG
+#logging.level.org.springframework.transaction: DEBUG
+logging.level.com.amazonaws.util.EC2MetadataUtils: error
